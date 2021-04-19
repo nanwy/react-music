@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { memo } from "react";
+import { Provider } from 'react-redux';
+import { renderRoutes } from "react-router-config";
+import { HashRouter as Router } from "react-router-dom";
+//功能
+import routes from "@/router";
+import store from './store'
+import { LayoutMain } from "./style";
+//工具
 
-function App() {
+//组件
+import WYHeader from "@/components/Header";
+import WYAside from "./components/Slide";
+import WYFooter from "@/components/Footer";
+
+const App:React.FC = ()=> {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<Provider store={store}>
+<Router>
+      <WYHeader />
+      <LayoutMain>
+        <WYAside />
+        {renderRoutes(routes)}
+      </LayoutMain>
+      <WYFooter />
+    </Router>
+</Provider>
   );
 }
-
-export default App;
+export default memo(App);
